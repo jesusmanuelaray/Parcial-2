@@ -4,6 +4,9 @@
  */
 package com.mycompany.estudio_parcial;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -50,23 +53,34 @@ public class FormularioComida extends javax.swing.JFrame {
 
         jLabel3.setText("ID Orden:");
 
-        jButtonGuardar.setText("Guardar");
+        txt_ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_IDActionPerformed(evt);
+            }
+        });
+
+        jButtonGuardar.setText("Ordenar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
             }
         });
 
-        BoxFruta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione opción-", "Manzana", "Fresa", "Banano", "Pera" }));
+        BoxFruta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione opción-", "Manzana", "Fresa", "Banano", "Pera", "Mango", "Guayaba", "Freijoa", "Naranja", "Granadilla", "Borojó" }));
         BoxFruta1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoxFruta1ActionPerformed(evt);
             }
         });
 
-        BoxVerdura1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccionar opción-", "Zanahoria", "Apio", "Cilantro", "Remolacha" }));
+        BoxVerdura1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccionar opción-", "Zanahoria", "Apio", "Cilantro", "Remolacha", "Romero", "Cebolla", "Tomate", "Perejil", "Pepino", "Calabaza" }));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,18 +89,21 @@ public class FormularioComida extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoxVerdura1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BoxVerdura1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonGuardar)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelAnimal)
-                            .addComponent(txt_ID)
                             .addComponent(BoxFruta1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap(398, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txt_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(45, 45, 45))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,20 +111,23 @@ public class FormularioComida extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabelAnimal)
                 .addGap(9, 9, 9)
-                .addComponent(BoxFruta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BoxFruta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txt_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(BoxVerdura1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButton1))
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonGuardar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jButton1)))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,6 +154,14 @@ public class FormularioComida extends javax.swing.JFrame {
     private void BoxFruta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoxFruta1ActionPerformed
         //String Opcion1 = BoxFruta1.getSelectedItem();        // TODO add your handling code here:
     }//GEN-LAST:event_BoxFruta1ActionPerformed
+
+    private void txt_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_IDActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        consultar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,4 +223,20 @@ public class FormularioComida extends javax.swing.JFrame {
             
         }
     }
+    private void consultar(){
+        String id = txt_ID.getText();
+        /*
+        if(id){
+            try{
+                CollectionReference comida = Conexión.db.collection("Comida");
+                ApiFuture<QuerySnapshot> querySnap = comida.get();
+
+                JOptionPane.showMessageDialog(null, "");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Ocurrió un error, vuelve a intentarlo");
+            }    
+        }*/
+        
+    }
 }
+    
