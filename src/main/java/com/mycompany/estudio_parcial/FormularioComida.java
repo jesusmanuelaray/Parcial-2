@@ -225,17 +225,17 @@ public class FormularioComida extends javax.swing.JFrame {
     }
     private void consultar(){
         String id = txt_ID.getText();
-        /*
-        if(id){
-            try{
-                CollectionReference comida = Conexión.db.collection("Comida");
-                ApiFuture<QuerySnapshot> querySnap = comida.get();
+        
+    
+        try{
+            CollectionReference comida = Conexión.db.collection("Comida");
+            ApiFuture<QuerySnapshot> querySnap = comida.get();
 
-                JOptionPane.showMessageDialog(null, "");
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Ocurrió un error, vuelve a intentarlo");
-            }    
-        }*/
+            JOptionPane.showMessageDialog(null, "" + comida.getId());
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(null, "Ocurrió un error, vuelve a intentarlo");
+        }    
+    
         
     }
 }
